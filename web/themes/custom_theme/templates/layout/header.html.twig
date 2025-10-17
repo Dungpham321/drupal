@@ -1,0 +1,38 @@
+<header class="bg-white shadow sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center py-4 px-6">
+    {# Logo & site name #}
+    <div class="flex items-center space-x-3">
+      {% if site_logo %}
+        <a href="{{ path('<front>') }}" rel="home" class="block">
+          <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" class="h-10 w-auto">
+        </a>
+      {% endif %}
+      <a href="{{ path('<front>') }}" rel="home" class="text-2xl font-bold text-gray-800">
+        {{ site_name }}
+      </a>
+    </div>
+
+    {# Primary menu #}
+    {% if page.primary_menu %}
+      <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
+        {{ page.primary_menu }}
+      </nav>
+    {% endif %}
+
+    {# Mobile menu toggle #}
+    <button class="md:hidden p-2 text-gray-700" id="mobile-menu-toggle">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </div>
+
+  {# Mobile menu #}
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+    <div class="p-4">
+      {{ page.primary_menu }}
+    </div>
+  </div>
+</header>

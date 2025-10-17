@@ -1,0 +1,24 @@
+name: Custom theme
+type: theme
+description: 'Giao diện của Dũng.'
+core_version_requirement: ^11.0
+base theme: false
+libraries:
+  - custom_theme/global-styling
+regions:
+  top_header: 'Top header'
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  pagetop: 'Page top'
+  breadcrumb: Breadcrumb
+  content: 'Content'
+  pagebottom: 'Page bottom'
+  top_footer: 'Top Footer'
+  footer: 'Footer'
+  copyright: 'Copyright'
+  none: None
+
+# Information added by Drupal.org packaging script on 2024-09-13
+version: '1.0.0'
+project: 'custom_theme'
+datestamp: 1726236745

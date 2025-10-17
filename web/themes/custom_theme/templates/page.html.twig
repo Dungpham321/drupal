@@ -1,0 +1,27 @@
+<div id="page-wrapper">
+  <div id="page">
+       {% if page.header %}
+       <header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
+            {{ page.header }}
+            {% if page.primary_menu %}
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="{{ navbar_collapse_btn_data }}" data-bs-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div id="CollapsingNavbar">
+                  {{ page.primary_menu }}
+                </div>
+            {% endif %}
+       </head>
+       {% endif %}
+       {% if page.pagetop %}
+        <div class="page_top">
+             {{ page.pagetop }}
+        </div>
+       {% endif %}
+
+        <main role="main">
+            {{ page.content }}
+        </main>
+    <footer class="text-center py-4 text-sm text-gray-500">
+        © {{ "now"|date("Y") }} {{ site_name }}
+    </footer>
+  </div>
+</div>
