@@ -1,0 +1,24 @@
+/vendor/
+/web/sites/default/files/
+/sites/default/files/
+/core/assets/
+/node_modules/
+/.env
+/.idea/
+/.vscode/
+/.DS_Store
+
+# Local configs
+/web/sites/*/settings.local.php
+/web/sites/*/services.local.yml
+
+# Frontend build
+/web/themes/custom/*/dist/
+/web/themes/custom/*/build/
+/web/modules/custom/*/dist/
+/web/modules/custom/*/build/
+
+# Logs
+*.log
+*.tmp
+*.cache
