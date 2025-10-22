@@ -124,6 +124,7 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
    *   An AttributeValueBase representation of the attribute's value.
    */
   protected function createAttributeValue($name, $value) {
+    
     // If the value is already an AttributeValueBase object,
     // return a new instance of the same class, but with the new name.
     if ($value instanceof AttributeValueBase) {
@@ -147,6 +148,7 @@ class Attribute implements \ArrayAccess, \IteratorAggregate, MarkupInterface {
     }
     // As a development aid, we allow the value to be a safe string object.
     elseif ($value instanceof MarkupInterface) {
+      //\Drupal::messenger()->addMessage(print_r($value, true));
       // Attributes are not supposed to display HTML markup, so we just convert
       // the value to plain text.
       $value = PlainTextOutput::renderFromHtml($value);

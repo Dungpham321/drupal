@@ -597,7 +597,7 @@ class SlickManager extends BlazyManagerBase implements SlickManagerInterface {
         $item['item_attributes']
       );
       if (!$config->is('unslick')) {
-        $attrs['class'][] = 'slide__grid';
+        $attrs['class'][] = 'slide__grid a';
       }
 
       $attrs['class'][] = 'grid--' . $delta;

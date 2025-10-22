@@ -1,0 +1,199 @@
+<?php
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\Core\Utility\TableSort;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Datetime\DatePreprocess;
+use Drupal\Core\Theme\ThemePreprocess;
+use Drupal\Core\Config\Config;
+use Drupal\Core\Config\StorageException;
+use Drupal\Core\Template\AttributeHelper;
+use Drupal\Core\Theme\ThemeCommonElements;
+use Drupal\Core\Theme\ThemeSettings;
+use Drupal\Core\Installer\InstallerKernel;
+
+function custom_theme_preprocess_views_view_fields(&$variables): void {
+  $view = $variables['view'];
+
+  // Loop through the fields for this view.
+  $previous_inline = FALSE;
+  // Ensure it's at least an empty array.
+  $variables['fields'] = [];
+  /** @var \Drupal\views\ResultRow $row */
+  $row = $variables['row'];
+  foreach ($view->field as $id => $field) {
+    // Render this even if set to exclude so it can be used elsewhere.
+    $field_output = $view->style_plugin->getField($row->index, $id);
+    $empty = $field->isValueEmpty($field_output, $field->options['empty_zero']);
+    if (empty($field->options['exclude']) && (!$empty || (empty($field->options['hide_empty']) && empty($variables['options']['hide_empty'])))) {
+      $object = new stdClass();
+      $object->handler = $view->field[$id];
+      $object->inline = !empty($variables['options']['inline'][$id]);
+      // Set up default value of the flag that indicates whether to display a
+      // colon after the label.
+      $object->has_label_colon = FALSE;
+
+      $object->element_type = $object->handler->elementType(TRUE, !$variables['options']['default_field_elements'], $object->inline);
+      if ($object->element_type) {
+        $attributes = [];
+        if ($object->handler->options['element_default_classes']) {
+          $attributes['class'][] = 'field-content';
+        }
+
+        if ($classes = $object->handler->elementClasses($row->index)) {
+          $attributes['class'][] = $classes;
+        }
+        $object->element_attributes = new Attribute($attributes);
+      }
+
+      $object->content = $field_output;
+      if (isset($view->field[$id]->field_alias) && isset($row->{$view->field[$id]->field_alias})) {
+        $object->raw = $row->{$view->field[$id]->field_alias};
+      }
+      else {
+        // Make sure it exists to reduce NOTICE.
+        $object->raw = NULL;
+      }
+
+      if (!empty($variables['options']['separator']) && $previous_inline && $object->inline && $object->content) {
+        $object->separator = [
+          '#markup' => $variables['options']['separator'],
+        ];
+      }
+
+      $object->class = Html::cleanCssIdentifier($id);
+
+      $previous_inline = $object->inline;
+      // Set up field wrapper element.
+      $object->wrapper_element = $object->handler->elementWrapperType(TRUE, TRUE);
+      if ($object->wrapper_element === '' && $variables['options']['default_field_elements']) {
+        $object->wrapper_element = $object->inline ? 'span' : 'div';
+      }
+
+      // Set up field wrapper attributes if field wrapper was set.
+      if ($object->wrapper_element) {
+        $attributes = [];
+        if ($object->handler->options['element_default_classes']) {
+          $attributes['class'][] = 'views-field';
+          $attributes['class'][] = 'views-field-' . $object->class;
+        }
+        // \Drupal::messenger()->addMessage(print_r('a', true));
+        // exit();
+        //if ($classes = $object->handler->elementWrapperClasses($row->index)) {
+        if ($classes = elementWrapperClasses($object->handler, $row->index)) {
+          $attributes['class'][] = $classes;
+        }
+        $object->wrapper_attributes = new Attribute($attributes);
+      }
+
+      // Set up field label
+      $object->label = $view->field[$id]->label();
+
+      // Set up field label wrapper and its attributes.
+      if ($object->label) {
+        // Add a colon in a label suffix.
+        if ($object->handler->options['element_label_colon']) {
+          $object->label_suffix = ': ';
+          $object->has_label_colon = TRUE;
+        }
+
+        // Set up label HTML element.
+        $object->label_element = $object->handler->elementLabelType(TRUE, !$variables['options']['default_field_elements']);
+
+        // Set up label attributes.
+        if ($object->label_element) {
+          $attributes = [];
+          if ($object->handler->options['element_default_classes']) {
+            $attributes['class'][] = 'views-label';
+            $attributes['class'][] = 'views-label-' . $object->class;
+          }
+
+          // Set up field label.
+          $element_label_class = $object->handler->elementLabelClasses($row->index);
+          if ($element_label_class) {
+            $attributes['class'][] = $element_label_class;
+          }
+          $object->label_attributes = new Attribute($attributes);
+        }
+      }
+
+      $variables['fields'][$id] = $object;
+    }
+  }
+
+}
+
+function elementWrapperClasses($handler, $row_index = NULL) {
+    $classes = $handler->tokenizeValue($handler->options['element_wrapper_class'], $row_index);
+    $classes = explode(' ', $classes);
+    // foreach ($classes as &$class) {
+    //     //$class = Html::cleanCssIdentifier($class);
+    // }
+    return implode(' ', $classes);
+
+}
+// function custom_theme_preprocess_item_list(array &$variables): void {
+//   $variables['wrapper_attributes'] = new Attribute($variables['wrapper_attributes']);
+//   foreach ($variables['items'] as &$item) {
+//     $attributes = [];
+//     // If the item value is an array, then it is a render array.
+//     if (is_array($item)) {
+//       // List items support attributes via the '#wrapper_attributes' property.
+//       if (isset($item['#wrapper_attributes'])) {
+//         $attributes = $item['#wrapper_attributes'];
+//       }
+//       // Determine whether there are any child elements in the item that are not
+//       // fully-specified render arrays. If there are any, then the child
+//       // elements present nested lists and we automatically inherit the render
+//       // array properties of the current list to them.
+//       foreach (Element::children($item) as $key) {
+//         $child = &$item[$key];
+//         // If this child element does not specify how it can be rendered, then
+//         // we need to inherit the render properties of the current list.
+//         if (!isset($child['#type']) && !isset($child['#theme']) && !isset($child['#markup'])) {
+//           // Since item-list.html.twig supports both strings and render arrays
+//           // as items, the items of the nested list may have been specified as
+//           // the child elements of the nested list, instead of #items. For
+//           // convenience, we automatically move them into #items.
+//           if (!isset($child['#items'])) {
+//             // This is the same condition as in
+//             // \Drupal\Core\Render\Element::children(), which cannot be used
+//             // here, since it triggers an error on string values.
+//             foreach ($child as $child_key => $child_value) {
+//               if (is_int($child_key) || $child_key === '' || $child_key[0] !== '#') {
+//                 $child['#items'][$child_key] = $child_value;
+//                 unset($child[$child_key]);
+//               }
+//             }
+//           }
+//           // Lastly, inherit the original theme variables of the current list.
+//           $child['#theme'] = $variables['theme_hook_original'];
+//           $child['#list_type'] = $variables['list_type'];
+//         }
+//       }
+//     }
+
+//     // Set the item's value and attributes for the template.
+//     \Drupal::messenger()->addMessage(print_r($attributes), true);
+//     exit();
+//     $item = [
+//       'value' => $item,
+//       'attributes' => new Attribute($attributes),
+//     ];
+//   }
+// }
+function custom_theme_preprocess_item_list(&$variables): void {
+  if($variables['context']['settings']['instance_id'] == 'bao_chi-block-block_1'){
+    foreach ($variables['items'] as &$item) {
+        $item['attributes']['class'][] = 'my-li-item';
+      }
+  }
+}
+///view
+function custom_theme_preprocess_views_view(&$variables) {
+  if ($variables['view']->id() === 'tin_tuc' && $variables['view']->current_display === 'block_1') {
+    $variables['tin_tuc_phu'] = views_embed_view('tin_tuc_phu', 'block_1');
+  }
+}

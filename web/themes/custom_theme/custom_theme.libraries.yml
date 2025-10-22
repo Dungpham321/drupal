@@ -1,7 +1,11 @@
 global-styling:
   css:
     theme:
+      css/all.min.css: {}
+      css/mediaelementplayer.min.css: {}
       css/style.css: {}
-      css/output.css: {}
   js:
+    js/hls.min.js: {}
+    js/mediaelement-and-player.min.js: {}
     js/script.js: {}
+    

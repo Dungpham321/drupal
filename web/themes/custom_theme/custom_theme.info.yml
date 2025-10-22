@@ -5,18 +5,18 @@ core_version_requirement: ^11.0
 base theme: false
 libraries:
   - custom_theme/global-styling
+  - custom_theme/fontawesome
 regions:
-  top_header: 'Top header'
-  header: 'Header'
-  primary_menu: 'Primary menu'
-  pagetop: 'Page top'
-  breadcrumb: Breadcrumb
-  content: 'Content'
-  pagebottom: 'Page bottom'
-  top_footer: 'Top Footer'
-  footer: 'Footer'
+  top_header: 'Tiêu đề top'
+  header: 'Tiêu đề'
+  contentop: "Nội dung Top"
+  # primary_menu: 'Primary menu'
+  # pagetop: 'Page top'
+  # breadcrumb: Breadcrumb
+  content: 'Nội dung'
+  contentbottom: 'Nội dung phía dưới'
+  footer: 'Chân trang'
   copyright: 'Copyright'
-  none: None
 
 # Information added by Drupal.org packaging script on 2024-09-13
 version: '1.0.0'

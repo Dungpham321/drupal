@@ -22,7 +22,8 @@
         "drupal/core-recipe-unpack": "^11.2",
         "drupal/core-recommended": "^11.2",
         "drupal/slick": "^3.0",
-        "drupal/slick_views": "^3.0"
+        "drupal/slick_views": "^3.0",
+        "drush/drush": "^13.6"
     },
     "conflict": {
         "drupal/drupal": "*"
