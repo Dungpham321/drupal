@@ -369,3 +369,54 @@ body {
 .view-danhsachanh ul li:first-child{width: 50%;}
 .view-danhsachanh ul li img{width: 100%; height: auto; border-radius: 8px; object-fit: cover;  transform: scale(1); transition: transform 0.6s ease, filter 0.6s ease;}
 .view-danhsachanh ul li img:hover{transform: scale(1.05);}
+
+.view-quang-cao.view-display-id-block_4 {
+  height: 80px;              /* 👈 giảm chiều cao toàn khối */
+  display: flex;
+  align-items: center;       /* căn giữa dọc toàn khối */
+  justify-content: center;   /* căn giữa ngang toàn khối */
+  padding: 0 !important;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Các item trong slick (logo hoặc ảnh) */
+.view-quang-cao.view-display-id-block_4 .item-quangcao,
+.view-quang-cao.view-display-id-block_4 .slick__slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;              /* chiếm toàn bộ chiều cao khối */
+  padding: 0 10px;           /* khoảng cách giữa các logo */
+  box-sizing: border-box;
+}
+
+/* Ảnh logo bên trong */
+.view-quang-cao.view-display-id-block_4 img {
+  max-height: 60%;           /* ảnh nhỏ hơn khối một chút */
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.view-quang-cao.view-display-id-block_4:hover img {
+  transform: scale(1.05);    /* hover phóng nhẹ */
+}
+
+/* Dot nằm sát ảnh */
+.view-quang-cao.view-display-id-block_4 .slick-dots {
+  margin-top: 0;
+  padding-top: 0;
+  position: relative;
+  top: -5px;                 /* dịch dot lên gần ảnh */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Nếu dot nằm quá xa do cấu trúc slick wrapper */
+.view-quang-cao.view-display-id-block_4 .slick__slider {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
