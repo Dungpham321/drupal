@@ -22,3 +22,4 @@
 *.log
 *.tmp
 *.cache
+web/sites/default/settings.php

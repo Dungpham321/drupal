@@ -369,54 +369,61 @@ body {
 .view-danhsachanh ul li:first-child{width: 50%;}
 .view-danhsachanh ul li img{width: 100%; height: auto; border-radius: 8px; object-fit: cover;  transform: scale(1); transition: transform 0.6s ease, filter 0.6s ease;}
 .view-danhsachanh ul li img:hover{transform: scale(1.05);}
+  /* Toàn bộ block quảng cáo */
+  #block-views-block-quang-cao-block-4 {
+    padding: 0 !important;
+    margin: 0 auto;
+  }
 
-.view-quang-cao.view-display-id-block_4 {
-  height: 80px;              /* 👈 giảm chiều cao toàn khối */
-  display: flex;
-  align-items: center;       /* căn giữa dọc toàn khối */
-  justify-content: center;   /* căn giữa ngang toàn khối */
-  padding: 0 !important;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-}
+  /* Giới hạn chiều cao tổng thể, bỏ khoảng trống thừa */
+  #block-views-block-quang-cao-block-4 .view-khach-hang {
+    margin: 0 auto;
+    padding: 0;
+  }
 
-/* Các item trong slick (logo hoặc ảnh) */
-.view-quang-cao.view-display-id-block_4 .item-quangcao,
-.view-quang-cao.view-display-id-block_4 .slick__slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;              /* chiếm toàn bộ chiều cao khối */
-  padding: 0 10px;           /* khoảng cách giữa các logo */
-  box-sizing: border-box;
-}
+  /* Slick chính */
+  #block-views-block-quang-cao-block-4 .slick-list {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
 
-/* Ảnh logo bên trong */
-.view-quang-cao.view-display-id-block_4 img {
-  max-height: 60%;           /* ảnh nhỏ hơn khối một chút */
-  width: auto;
-  object-fit: contain;
-  transition: transform 0.3s;
-}
-
-.view-quang-cao.view-display-id-block_4:hover img {
-  transform: scale(1.05);    /* hover phóng nhẹ */
-}
-
-/* Dot nằm sát ảnh */
-.view-quang-cao.view-display-id-block_4 .slick-dots {
-  margin-top: 0;
-  padding-top: 0;
-  position: relative;
-  top: -5px;                 /* dịch dot lên gần ảnh */
+/* #block-views-block-quang-cao-block-4 .slick-slide {
   display: flex !important;
   justify-content: center;
   align-items: center;
+  padding: 5px 10px;
+  height: auto !important;
+} */
+#block-views-block-quang-cao-block-4 .grid .slide__grid{
+  padding: 0px;
+}
+#block-views-block-quang-cao-block-4 img {
+  max-height: 60px; /* 👈 giảm chiều cao ảnh */
+  /* width: auto; */
+  object-fit: contain; /* 👈 đảm bảo không méo hình */
 }
 
-/* Nếu dot nằm quá xa do cấu trúc slick wrapper */
-.view-quang-cao.view-display-id-block_4 .slick__slider {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+  /* Dots sát ảnh, không chiếm nhiều không gian */
+  #block-views-block-quang-cao-block-4 .slick-dots {
+    margin-top: 2px !important;
+    position: relative;
+    top: -2px;
+  }
+
+  #block-views-block-quang-cao-block-4 .slick-dots li button:before {
+    font-size: 8px;
+    color: #999;
+  }
+  #block-views-block-quang-cao-block-4 .slick-dots li.slick-active button:before {
+    color: #000;
+  }
+/* Ghi đè class gốc */
+.b-grid > .grid {
+  /* float: left !important;
+  display: block !important;
+  justify-content: center;
+  align-items: center; */
+  padding: 5px 0.625rem 0 !important;
+  /* margin: 0 !important;
+  width: auto !important; */
 }
