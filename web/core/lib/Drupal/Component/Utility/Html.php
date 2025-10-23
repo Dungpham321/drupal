@@ -102,8 +102,8 @@ class Html {
       ' ' => '-',
       '_' => '-',
       '/' => '-',
-      '[' => '[',
-      ']' => ']',
+      '[' => '-',
+      ']' => '',
     ],
   ) {
     // We could also use strtr() here but its much slower than str_replace(). In

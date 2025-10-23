@@ -17,11 +17,14 @@
 				</div>
 			</div>
 		{% endif %}
+		{% if page.content %}
 		<main role="main">
 			<div class="container inner-main bg-[#fff] py-6 px-4 shadow-md rounded-lg">
 		       {{ page.content }}
 			</div>
 		</main>
+		{% endif %}
+		
 		{% if page.contentbottom %}
 			<div class="content-bottom">
 				<div class="mt-[30px]">
@@ -29,12 +32,16 @@
 			    </div>
 			</div>
 		{% endif %}
-		
+		{% if page.khachhang %}
+			<div class="region-khachhang">
+				<div class="mt-[30px]">
+					{{ page.khachhang }}
+			    </div>
+			</div>
+		{% endif %}
 		{% if page.footer %}
-			<footer class="text-center py-4 text-sm text-gray-500">
-				©
-				{{ "now"|date("Y") }}
-				{{ site_name }}
+			<footer class="footer-wap bg-[#242C42] ">
+				<div class="container">{{page.footer}}</div>
 			</footer>
 		{% endif %}
 	</div>

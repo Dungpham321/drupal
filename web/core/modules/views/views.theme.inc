@@ -844,6 +844,7 @@ function template_preprocess_views_view_unformatted(&$variables): void {
   $rows = $variables['rows'];
   $style = $view->style_plugin;
   $options = $style->options;
+
   $variables['default_row_class'] = !empty($options['default_row_class']);
   foreach ($rows as $id => $row) {
     $variables['rows'][$id] = [];
