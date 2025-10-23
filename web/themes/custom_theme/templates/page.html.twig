@@ -6,7 +6,7 @@
 			</div>
 		</div>
 		{% if page.header %}
-			<header id="header" class="header clearfix" role="banner" aria-label="{{ 'Site header'|t }}">
+			<header id="header" class="header bg-[#fff] clearfix" role="banner" aria-label="{{ 'Site header'|t }}">
 				<div class="inner-header flex items-center justify-between container">{{ page.header }}</div>
 			</header>
 		{% endif %}
@@ -18,13 +18,18 @@
 			</div>
 		{% endif %}
 		<main role="main">
-			{{ page.content }}
+			<div class="container inner-main bg-[#fff] py-6 px-4 shadow-md rounded-lg">
+		       {{ page.content }}
+			</div>
 		</main>
 		{% if page.contentbottom %}
 			<div class="content-bottom">
-				{{ page.contentbottom }}
+				<div class="mt-[30px]">
+					{{ page.contentbottom }}
+			    </div>
 			</div>
 		{% endif %}
+		
 		{% if page.footer %}
 			<footer class="text-center py-4 text-sm text-gray-500">
 				©

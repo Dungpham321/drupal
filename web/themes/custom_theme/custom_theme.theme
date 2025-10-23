@@ -13,10 +13,12 @@ use Drupal\Core\Template\AttributeHelper;
 use Drupal\Core\Theme\ThemeCommonElements;
 use Drupal\Core\Theme\ThemeSettings;
 use Drupal\Core\Installer\InstallerKernel;
+use Drupal\file\Entity\File;
 
 function custom_theme_preprocess_views_view_fields(&$variables): void {
   $view = $variables['view'];
-
+  $viewId = $view->id();
+  $displayId = $view->current_display;
   // Loop through the fields for this view.
   $previous_inline = FALSE;
   // Ensure it's at least an empty array.
@@ -79,12 +81,12 @@ function custom_theme_preprocess_views_view_fields(&$variables): void {
           $attributes['class'][] = 'views-field';
           $attributes['class'][] = 'views-field-' . $object->class;
         }
-        // \Drupal::messenger()->addMessage(print_r('a', true));
-        // exit();
-        //if ($classes = $object->handler->elementWrapperClasses($row->index)) {
         if ($classes = elementWrapperClasses($object->handler, $row->index)) {
           $attributes['class'][] = $classes;
         }
+        // if($viewId === "tin_tuc_phu" && $displayId === "block_1") {
+        //   dump($id);
+        // }
         $object->wrapper_attributes = new Attribute($attributes);
       }
 
@@ -120,10 +122,40 @@ function custom_theme_preprocess_views_view_fields(&$variables): void {
       }
 
       $variables['fields'][$id] = $object;
+      // dump($variables['fields']['field_mo_ta']->content);
     }
   }
 
 }
+
+
+function custom_theme_preprocess_views_view_unformatted(&$variables): void {
+  $view = $variables['view'];
+  $viewId = $view->id();
+  $displayId = $view->current_display;
+  $rows = $variables['rows'];
+  $style = $view->style_plugin;
+  $options = $style->options;
+  $variables['default_row_class'] = !empty($options['default_row_class']);
+  foreach ($rows as $id => $row) {
+    $variables['rows'][$id] = [];
+    // if($viewId === "tin_tuc_phu" && $displayId === "block_2") {
+    // }
+   if (!is_array($row)) {
+    $variables['rows'][$id] = [
+      'content' => $row,
+      'attributes' => ['class' => []],
+    ];
+  }
+  else {
+    $variables['rows'][$id]['content'] = $row['content'] ?? $row;
+    $variables['rows'][$id]['attributes'] = new Attribute();
+  }
+    $row_class = $options['row_class'];
+    $variables['rows'][$id]['attributes']->addClass($row_class);
+  }
+}
+
 
 function elementWrapperClasses($handler, $row_index = NULL) {
     $classes = $handler->tokenizeValue($handler->options['element_wrapper_class'], $row_index);
@@ -134,56 +166,7 @@ function elementWrapperClasses($handler, $row_index = NULL) {
     return implode(' ', $classes);
 
 }
-// function custom_theme_preprocess_item_list(array &$variables): void {
-//   $variables['wrapper_attributes'] = new Attribute($variables['wrapper_attributes']);
-//   foreach ($variables['items'] as &$item) {
-//     $attributes = [];
-//     // If the item value is an array, then it is a render array.
-//     if (is_array($item)) {
-//       // List items support attributes via the '#wrapper_attributes' property.
-//       if (isset($item['#wrapper_attributes'])) {
-//         $attributes = $item['#wrapper_attributes'];
-//       }
-//       // Determine whether there are any child elements in the item that are not
-//       // fully-specified render arrays. If there are any, then the child
-//       // elements present nested lists and we automatically inherit the render
-//       // array properties of the current list to them.
-//       foreach (Element::children($item) as $key) {
-//         $child = &$item[$key];
-//         // If this child element does not specify how it can be rendered, then
-//         // we need to inherit the render properties of the current list.
-//         if (!isset($child['#type']) && !isset($child['#theme']) && !isset($child['#markup'])) {
-//           // Since item-list.html.twig supports both strings and render arrays
-//           // as items, the items of the nested list may have been specified as
-//           // the child elements of the nested list, instead of #items. For
-//           // convenience, we automatically move them into #items.
-//           if (!isset($child['#items'])) {
-//             // This is the same condition as in
-//             // \Drupal\Core\Render\Element::children(), which cannot be used
-//             // here, since it triggers an error on string values.
-//             foreach ($child as $child_key => $child_value) {
-//               if (is_int($child_key) || $child_key === '' || $child_key[0] !== '#') {
-//                 $child['#items'][$child_key] = $child_value;
-//                 unset($child[$child_key]);
-//               }
-//             }
-//           }
-//           // Lastly, inherit the original theme variables of the current list.
-//           $child['#theme'] = $variables['theme_hook_original'];
-//           $child['#list_type'] = $variables['list_type'];
-//         }
-//       }
-//     }
 
-//     // Set the item's value and attributes for the template.
-//     \Drupal::messenger()->addMessage(print_r($attributes), true);
-//     exit();
-//     $item = [
-//       'value' => $item,
-//       'attributes' => new Attribute($attributes),
-//     ];
-//   }
-// }
 function custom_theme_preprocess_item_list(&$variables): void {
   if($variables['context']['settings']['instance_id'] == 'bao_chi-block-block_1'){
     foreach ($variables['items'] as &$item) {
@@ -194,6 +177,34 @@ function custom_theme_preprocess_item_list(&$variables): void {
 ///view
 function custom_theme_preprocess_views_view(&$variables) {
   if ($variables['view']->id() === 'tin_tuc' && $variables['view']->current_display === 'block_1') {
-    $variables['tin_tuc_phu'] = views_embed_view('tin_tuc_phu', 'block_1');
+    // $variables['tin_tuc_phu'] = views_embed_view('tin_tuc_phu', 'block_1');
+     $file_url_generator = \Drupal::service('file_url_generator');
+     $sub_view = \Drupal\views\Views::getView('tin_tuc_phu');
+      if ($sub_view) {
+      $sub_view->setDisplay('block_1');
+      $sub_view->setItemsPerPage(4);
+      $sub_view->preExecute();
+      $sub_view->execute();
+      // Lấy dữ liệu rows
+      $rows = [];
+      foreach ($sub_view->result as $row) {
+        $fields = $sub_view->field;
+        $title = $fields['title']->advancedRender($row);
+        // $image = $fields['field_anh']->advancedRender($row);
+        $depc = $fields['field_mo_ta']->advancedRender($row);
+        $image_url = '';
+        if (!empty($row->_entity->get('field_anh')->entity)) {
+          $image_uri = $row->_entity->get('field_anh')->entity->getFileUri();
+          $image_url = $file_url_generator->generateAbsoluteString($image_uri);
+        }
+        $rows[] = [
+          'title' => $title,
+          'anh' => $image_url,
+          'mo_ta' => $depc,
+        ];
+      }
+      
+      $variables['tin_tuc_phu'] = $rows;
+    }
   }
 }

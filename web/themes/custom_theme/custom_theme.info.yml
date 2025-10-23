@@ -15,6 +15,7 @@ regions:
   # breadcrumb: Breadcrumb
   content: 'Nội dung'
   contentbottom: 'Nội dung phía dưới'
+  khachhang: 'Khách hàng'
   footer: 'Chân trang'
   copyright: 'Copyright'
 

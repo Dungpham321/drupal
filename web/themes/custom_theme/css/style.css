@@ -1,7 +1,16 @@
+body {
+  font-family: "Quicksand", Sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #F6F6F6;
+  color: #333;
+}
 .container {
   max-width: 1140px;
   margin: 0 auto;
 }
+.container::before, .container::after{display: table; content: " "; clear: both;}
 .header-top-wrap {
   height: 36px;
   background-color: #114aa0;
@@ -260,6 +269,7 @@
   width: 270px;
   margin-left: 10px;
   align-items: center;
+  background-color: #fff;
 }
 
 .view-bao-chi .slide__grid:hover {
@@ -324,7 +334,6 @@
 
 /* === Dots === */
 .view-bao-chi .slick-dots {
-  bottom: -35px;
   text-align: center;
 }
 
@@ -355,3 +364,7 @@
     font-size: 13px;
   }
 }
+.view-danhsachanh ul li{float: left; width: 25%; padding: 10px;}
+.view-danhsachanh ul li:first-child{width: 50%;}
+.view-danhsachanh ul li img{width: 100%; height: auto; border-radius: 8px; object-fit: cover;  transform: scale(1); transition: transform 0.6s ease, filter 0.6s ease;}
+.view-danhsachanh ul li img:hover{transform: scale(1.05);}
