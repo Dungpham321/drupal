@@ -849,8 +849,8 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # }
 $databases['default']['default'] = array (
   'database' => 'drupal11',
-  'username' => 'root', //root
-  'password' => '123456', //123456
+  'username' => 'admin', //root
+  'password' => 'Gdt123!@#', //123456
   'prefix' => '',
   'host' => 'localhost', //asoft.ddns.net
   'port' => '3306',

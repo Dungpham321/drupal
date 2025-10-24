@@ -571,16 +571,43 @@ body {
   width: auto;
 }
 
+.gioi-thieu-tabs {
+  display: flex;
+  justify-content: center; /* canh giữa các nút */
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap; /* nếu nhiều hơn 3 thì tự xuống hàng */
+  padding: 0 20px;
+  border-radius: 6px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  background: #fff;
+}
+
 .tab-btn {
+  flex: 1 1 calc(33.333% - 12px); /* chia đều trong 1 hàng */
+  max-width: 240px; /* vẫn giới hạn mềm để không quá to khi ít tab */
+  text-align: center;
   padding: 12px 24px;
   border: none;
   cursor: pointer;
   font-weight: 600;
   position: relative;
   background: transparent;
-  border-radius: 6px 6px 0 0; /* chỉ bo góc trên */
+  border-radius: 6px 6px 0 0;
+  transition: 0.25s;
 }
 
+/* Nếu chỉ có 2 hoặc 1 tab, vẫn giữ căn giữa và không kéo giãn quá */
+.gioi-thieu-tabs:has(.tab-btn:nth-child(2):last-child) .tab-btn {
+  flex: 0 1 200px;
+}
+.gioi-thieu-tabs:has(.tab-btn:nth-child(1):last-child) .tab-btn {
+  flex: 0 1 200px;
+}
+
+/* Hiệu ứng dưới chân nút */
 .tab-btn::after {
   content: "";
   position: absolute;
@@ -601,6 +628,7 @@ body {
   background: #ff9000;
 }
 
+/* Panel logic */
 .tab-panel {
   display: none;
 }
@@ -609,17 +637,6 @@ body {
   display: block;
 }
 
-.gioi-thieu-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 0px 20px;
-  border-radius: 6px;
-  margin: 0 auto; /* căn giữa */
-  position: relative;
-  z-index: 10;
-  background: #fff;
-}
 
 
 /* Reset layout chỉ cho nội dung tab */
@@ -666,4 +683,10 @@ body {
 .rich-content div,
 .rich-content span {
   word-break: break-word;
+}
+
+.view-banner .views-field-field-anh img {
+  border-radius: 8px;
+  max-height: 600px;
+  object-fit: cover;
 }
