@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Hooks for a views summary display to show rows as tabs.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function views_summary_tabs_theme($existing, $type, $theme, $path) {
+  $array = [
+    'views_view_summary_tabs' => [
+      'variables' => [
+        'view' => NULL,
+        'options' => NULL,
+        'rows' => NULL,
+      ],
+      'file' => 'views_summary_tabs.theme.inc',
+    ],
+  ];
+
+  return $array;
+}

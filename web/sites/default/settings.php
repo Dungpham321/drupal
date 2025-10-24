@@ -309,7 +309,7 @@ $settings['hash_salt'] = 'BbUazDsUVYM3nqOGQ3o-Jy0NtGpcPHBSJA9VNp4HR9oFORj8mW6JUf
  * After finishing the upgrade, be sure to open this file again and change the
  * TRUE back to a FALSE!
  */
-$settings['update_free_access'] = FALSE;
+$settings['update_free_access'] = TRUE;
 
 /**
  * Fallback to HTTP for Update Status and for fetching security advisories.
@@ -848,9 +848,9 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'drupal',
-  'username' => 'admin', //root
-  'password' => 'Gdt123!@#', //123456
+  'database' => 'drupal11',
+  'username' => 'root', //root
+  'password' => '123456', //123456
   'prefix' => '',
   'host' => 'localhost', //asoft.ddns.net
   'port' => '3306',

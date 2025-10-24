@@ -207,4 +207,16 @@ function custom_theme_preprocess_views_view(&$variables) {
       $variables['tin_tuc_phu'] = $rows;
     }
   }
+  if($variables['view']->id() === 'page_gioi_thieu' && $variables['view']->current_display === 'page_1'){
+    $rows = [];
+    foreach ($variables['view']->result as $row) {
+      $entity = $row->_entity;
+      $rows[] = [
+        'id' => $entity->id(),
+        'tieu_de' => $entity->label(),
+        'noi_dung' => $entity->get('body')->value,
+      ];
+    }
+    $variables['list_gioi_thieu'] = $rows;
+  }
 }

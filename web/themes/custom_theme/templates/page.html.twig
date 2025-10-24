@@ -19,7 +19,7 @@
 		{% endif %}
 		{% if page.content %}
 		<main role="main">
-			<div class="container inner-main bg-[#fff] py-6 px-4 shadow-md rounded-lg">
+			<div class="container inner-main bg-[#fff] ">
 		       {{ page.content }}
 			</div>
 		</main>
@@ -41,8 +41,13 @@
 		{% endif %}
 		{% if page.footer %}
 			<footer class="footer-wap bg-[#242C42] ">
-				<div class="container">{{page.footer}}</div>
+				<div class="container flex justify-between py-[10px]">{{page.footer}}</div>
 			</footer>
+		{% endif %}
+		{% if page.copyright %}
+			<div class="copyright-wap">
+				<div class="copyright-inner">{{page.copyright}}</div>
+			</div>
 		{% endif %}
 	</div>
 </div>

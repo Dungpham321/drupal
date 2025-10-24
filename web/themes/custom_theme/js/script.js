@@ -22,3 +22,44 @@
         });
     });
 })(jQuery);
+
+(function (Drupal) {
+  Drupal.behaviors.menuToggle = {
+    attach: function (context, settings) {
+      const btn = context.querySelector(".tbm-button");
+      const menu = context.querySelector(".tbm-main");
+    
+      if (btn && menu && !btn.dataset.bound) {
+        btn.dataset.bound = true;
+        btn.addEventListener("click", () => {
+            console.log(menu);
+          menu.classList.toggle("open");
+        });
+      }
+    }
+  };
+})(Drupal);
+
+//js chuyển tab trong block nội dung trang giới thiệu
+(function (Drupal, once) {
+  Drupal.behaviors.tabsBehavior = {
+    attach: function (context, settings) {
+
+      const buttons = once('tab-btn', '.tab-btn', context);
+      const tabs = document.querySelectorAll(".tab-panel");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          tabs.forEach(tab => tab.classList.remove("active"));
+          document.getElementById(btn.dataset.tab).classList.add("active");
+
+        });
+      });
+
+    }
+  };
+})(Drupal, once);

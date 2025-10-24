@@ -1,0 +1,12 @@
+name: Views Summary Tabs
+type: module
+description: "Adds a tabs presentation for displaying a views summary."
+package: Views
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2024-03-27
+version: '1.0.0'
+project: 'views_summary_tabs'
+datestamp: 1711538256
