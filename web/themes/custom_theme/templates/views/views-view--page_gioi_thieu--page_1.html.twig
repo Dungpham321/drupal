@@ -1,4 +1,4 @@
-<div class="gioi-thieu-tabs-wrapper shadow-md rounded-lg mt-[-40px]">
+<div class="gioi-thieu-tabs-wrapper shadow-md rounded-lg mt-[-40px] mb-[calc(var(--spacing)*4)]">
   <div class="gioi-thieu-tabs flex justify-center gap-4">
     {% for tab in list_gioi_thieu %}
       <button class="tab-btn {{ loop.first ? 'active' : '' }}" data-tab="tab-{{ tab.id }}">

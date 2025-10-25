@@ -219,4 +219,5 @@ function custom_theme_preprocess_views_view(&$variables) {
     }
     $variables['list_gioi_thieu'] = $rows;
   }
+  
 }

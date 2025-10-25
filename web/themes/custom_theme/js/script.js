@@ -28,11 +28,9 @@
     attach: function (context, settings) {
       const btn = context.querySelector(".tbm-button");
       const menu = context.querySelector(".tbm-main");
-    
       if (btn && menu && !btn.dataset.bound) {
         btn.dataset.bound = true;
         btn.addEventListener("click", () => {
-            console.log(menu);
           menu.classList.toggle("open");
         });
       }

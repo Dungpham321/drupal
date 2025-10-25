@@ -23,6 +23,7 @@
         "drupal/core-recommended": "^11.2",
         "drupal/slick": "^3.0",
         "drupal/slick_views": "^3.0",
+        "drupal/twig_tweak": "^3.4",
         "drush/drush": "^13.6"
     },
     "conflict": {
