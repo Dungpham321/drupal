@@ -8,4 +8,8 @@ global-styling:
     js/hls.min.js: {}
     js/mediaelement-and-player.min.js: {}
     js/script.js: {}
-    
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once

@@ -1,4 +1,4 @@
-(function($){
+(function($, Drupal){
     $(".block-gioithieu2-gdt article").each(function () {
         var pl = $(this);
         var src = pl.attr('src');
@@ -21,7 +21,7 @@
             }
         });
     });
-})(jQuery);
+})(jQuery, Drupal);
 
 (function (Drupal) {
   Drupal.behaviors.menuToggle = {
