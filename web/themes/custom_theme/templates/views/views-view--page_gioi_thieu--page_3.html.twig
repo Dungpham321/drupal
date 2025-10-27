@@ -1,0 +1,37 @@
+<div class="page-tuyen-dung grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-[20px] px-[10px]">
+  {% for row in page_tuyen_dung_rows %}
+    <div class="item bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+      
+      <!-- Image -->
+      <div class="overflow-hidden">
+        <img src="{{ row.anh }}" alt="{{ row.title|render|striptags }}" class="w-full h-[213px] object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+      <!-- Content -->
+      <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+          <h3 class="font-quicksand font-bold text-[17px] leading-[25px] text-[#023B98] mb-2 line-clamp-2">
+            {{ row.title }}
+          </h3>
+
+          {% if row.mo_ta %}
+            <p class="text-gray-600 text-sm line-clamp-3">
+              {{ row.mo_ta|render|striptags }}
+            </p>
+          {% endif %}
+        </div>
+        <!-- Button luôn nằm đáy bên phải -->
+        <div class="mt-4 flex justify-end">
+          <a href="#" class="text-white bg-[#FF8000] px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+            Ứng tuyển
+          </a>
+        </div>
+      </div>
+
+    </div>
+  {% endfor %}
+  <!-- Pager -->
+  <div class="col-span-full">
+    {{ page_tuyen_dung_pager }}
+  </div>
+</div>

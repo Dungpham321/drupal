@@ -14,6 +14,7 @@ regions:
   # pagetop: 'Page top'
   # breadcrumb: Breadcrumb
   content: 'Nội dung'
+  blockright: 'Block bên phải'
   contentbottom: 'Nội dung phía dưới'
   khachhang: 'Khách hàng'
   footer: 'Chân trang'

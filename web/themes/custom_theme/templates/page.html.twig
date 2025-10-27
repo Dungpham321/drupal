@@ -19,8 +19,26 @@
 		{% endif %}
 		{% if page.content %}
 		<main role="main">
-			<div class="container inner-main bg-[#fff] ">
-		       {{ page.content }}
+			{# <div class="container inner-main bg-[#fff]">
+				<div class="page-content">{{ page.content }}</div>
+				{% if node is defined and  page.blockright %}
+					<div class="block-right">
+						{{ page.blockright }} 
+					</div>
+				{% endif %}	
+			</div> #}
+			<div class="container inner-main bg-[#fff] {% if node is defined and page.blockright %}flex flex-col lg:flex-row gap-6{% endif %}">
+				<div class="page-content w-full {% if node is defined and page.blockright %}lg:w-2/3{% endif %}">
+				    {% if node is defined %}
+						<h1 class="title text-[26px] font-bold mb-4">{{ node.label }}</h1>
+					{% endif %}
+					{{ page.content }}
+				</div>
+				{% if node is defined and page.blockright %}
+					<div class="block-right w-full lg:w-1/3">
+					{{ page.blockright }}
+					</div>
+				{% endif %}
 			</div>
 		</main>
 		{% endif %}

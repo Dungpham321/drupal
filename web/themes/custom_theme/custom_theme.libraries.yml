@@ -13,3 +13,4 @@ global-styling:
     - core/drupal
     - core/drupalSettings
     - core/once
+    - slick/slick

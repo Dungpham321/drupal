@@ -6,6 +6,9 @@ body {
   background-color: #f6f6f6;
   color: #333;
 }
+body.node--type-bai-viet {
+  background-color: #fff;
+}
 
 .container {
   max-width: 1140px;
@@ -46,7 +49,7 @@ body {
 }
 
 /* Cấp 1 */
-.tbm-main .tbm-item.level-1>.tbm-link-container>.tbm-link {
+.tbm-main .tbm-item.level-1 > .tbm-link-container > .tbm-link {
   position: relative;
   text-decoration: none;
   color: #333;
@@ -57,7 +60,7 @@ body {
   transition: color 0.3s ease;
 }
 
-.tbm-main .tbm-item.level-1>.tbm-link-container>.tbm-link::after {
+.tbm-main .tbm-item.level-1 > .tbm-link-container > .tbm-link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -68,18 +71,18 @@ body {
   transition: width 0.3s ease;
 }
 
-.tbm-main .tbm-item.level-1>.tbm-link-container>.tbm-link:hover::after,
-.tbm-main .tbm-item.active>.tbm-link-container>.tbm-link::after {
+.tbm-main .tbm-item.level-1 > .tbm-link-container > .tbm-link:hover::after,
+.tbm-main .tbm-item.active > .tbm-link-container > .tbm-link::after {
   width: 100%;
 }
 
-.tbm-main .tbm-item.level-1>.tbm-link-container>.tbm-link:hover {
+.tbm-main .tbm-item.level-1 > .tbm-link-container > .tbm-link:hover {
   background: #fff;
   color: #ff8000;
 }
 
 /* Active */
-.tbm-main .tbm-item.active>.tbm-link-container>.tbm-link {
+.tbm-main .tbm-item.active > .tbm-link-container > .tbm-link {
   color: #ff8000;
   font-weight: 600;
 }
@@ -98,7 +101,7 @@ body {
   z-index: 999;
 }
 
-.tbm-main .tbm-item--has-dropdown:hover>.tbm-submenu {
+.tbm-main .tbm-item--has-dropdown:hover > .tbm-submenu {
   display: block;
 }
 
@@ -211,20 +214,20 @@ body {
     padding-left: 15px;
   }
 
-  .tbm-main .tbm-item.level-1>.tbm-link-container>.tbm-link::after {
+  .tbm-main .tbm-item.level-1 > .tbm-link-container > .tbm-link::after {
     display: none;
   }
 
-  .tbm-main .tbm-item--has-dropdown>.tbm-submenu {
+  .tbm-main .tbm-item--has-dropdown > .tbm-submenu {
     display: none;
   }
 
-  .tbm-main .tbm-item--has-dropdown.open>.tbm-submenu {
+  .tbm-main .tbm-item--has-dropdown.open > .tbm-submenu {
     display: block;
   }
 }
 
-.block-title-vitech>h2 {
+.block-title-vitech > h2 {
   margin-bottom: 20px;
   font-family: "Quicksand", Sans-serif;
   font-size: 20px;
@@ -323,8 +326,31 @@ body {
 }
 
 .mejs__container .mejs__container-keyboard-inactive .mejs__video {
-  width: 550px !important;
+  width: 100% !important;
   height: 310px !important;
+}
+.gdt-video-player,
+.mejs__container,
+.mejs__mediaelement,
+.mejs__poster,
+.mejs__layer,
+.gdt-video-player video,
+.gdt-video-player iframe,
+.mejs__container .mejs__overlay {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Giữ tỷ lệ video */
+.mejs__container {
+  aspect-ratio: 16 / 9 !important;
+}
+
+/* Desktop nếu muốn giới hạn */
+@media (min-width: 768px) {
+  .gdt-video-player {
+    max-width: 550px;
+  }
 }
 
 .gioithieu2-block {
@@ -356,7 +382,7 @@ body {
   padding: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 400px;
-  width: 270px;
+  width: 275px;
   margin-left: 10px;
   align-items: center;
   background-color: #fff;
@@ -373,7 +399,7 @@ body {
   height: auto;
   border-radius: 10px;
   /* bo ảnh cho đồng bộ */
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
@@ -421,6 +447,11 @@ body {
 
 .view-bao-chi .slick-next {
   right: -50px;
+}
+.view-bao-chi .slick-prev:before,
+.view-bao-chi .slick-next:before {
+  color: #1d98fc; /* Đổi màu ở đây */
+  font-size: 30px; /* nếu muốn to hơn */
 }
 
 /* === Dots === */
@@ -527,7 +558,7 @@ body {
 }
 
 /* Ghi đè class gốc */
-#block-views-block-quang-cao-block-4 .b-grid>.grid {
+#block-views-block-quang-cao-block-4 .b-grid > .grid {
   padding: 5px 0.625rem 0 !important;
 }
 
@@ -536,7 +567,7 @@ body {
   margin-bottom: 0px !important;
 }
 
-.Khoi-phuong-thuc-lien-he>h2 {
+.Khoi-phuong-thuc-lien-he > h2 {
   color: #f58120;
   font-family: "Quicksand", Sans-serif;
   font-size: 18px;
@@ -545,7 +576,7 @@ body {
   margin-bottom: 20px;
 }
 
-.menu-footer>h2 {
+.menu-footer > h2 {
   color: #f58120;
   font-family: "Quicksand", Sans-serif;
   font-size: 18px;
@@ -573,7 +604,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.khoi-ket-noi>h2 {
+.khoi-ket-noi > h2 {
   color: #f58120;
   font-family: "Quicksand", Sans-serif;
   font-size: 18px;
@@ -736,8 +767,16 @@ body {
 .view-banner .views-field-field-anh img {
   max-height: 600px;
   object-fit: cover;
+  display: block;
 }
 
+.bai-viet-lien-quan .views-row {
+  overflow: hidden;
+  gap: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
 
 .tin-tuc-phu .views-row {
   overflow: hidden;
@@ -756,7 +795,7 @@ body {
 }
 
 .tin-tuc-phu .views-field-title a {
-  color: #006EB7;
+  color: #006eb7;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
@@ -782,4 +821,95 @@ body {
   -webkit-line-clamp: 3;
   /* Giới hạn 3 dòng */
   -webkit-box-orient: vertical;
+}
+
+/*  */
+.tieudelink-right::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Full chiều rộng */
+  height: 4px;
+  background: #f57e3f;
+}
+@media (max-width: 1024px) {
+  .page-content * {
+    max-width: 100% !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .page-content img,
+  .page-content iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+
+  .page-content table {
+    width: 100% !important;
+    table-layout: fixed;
+  }
+
+  .page-content ul,
+  .page-content ol {
+    padding-left: 1.25rem;
+  }
+}
+
+/* thêm lớp mờ trên ảnh cho chữ nổi bật */
+.banner-tuyendung::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.mo-ta-banner h2 {
+  color: #21428a;
+  font-family: "Google Sans", Sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+}
+.banner-tuyendung {
+  position: relative;
+  width: 100%;
+}
+
+/* Ảnh banner */
+.banner-tuyendung .anh-banner-tuyen-dung img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mô tả overlay */
+.banner-tuyendung .mo-ta-banner {
+  position: absolute; /* overlay lên ảnh */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* căn giữa nội dung */
+  flex-direction: column;
+  justify-content: center; /* căn dọc */
+  align-items: center;    /* căn ngang */
+  text-align: center;
+  padding: 20px;          /* padding nội dung */
+  box-sizing: border-box;
+  pointer-events: none;   /* tránh click chặn ảnh */
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .banner-tuyendung .mo-ta-banner h2 {
+    font-size: 1.5rem; /* giảm chữ tiêu đề */
+  }
+  .banner-tuyendung .mo-ta-banner p {
+    display: none;
+    font-size: 0.875rem; /* giảm chữ mô tả */
+    max-width: 90%;      /* hạn chế chiều rộng */
+  }
+
 }
