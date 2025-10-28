@@ -24,7 +24,8 @@
         "drupal/slick": "^3.0",
         "drupal/slick_views": "^3.0",
         "drupal/twig_tweak": "^3.4",
-        "drush/drush": "^13.6"
+        "drush/drush": "^13.6",
+        "phpmailer/phpmailer": "^7.0"
     },
     "conflict": {
         "drupal/drupal": "*"

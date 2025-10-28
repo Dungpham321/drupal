@@ -1,0 +1,9 @@
+name: Custom Module
+type: module
+description: 'Module designed by DUNGPV.'
+package: Custom
+core_version_requirement: ^11
+
+version: '1.0.0'
+project: 'custom_module'
+datestamp: 1759263313

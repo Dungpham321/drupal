@@ -1,0 +1,5 @@
+services:
+  custom_mail.mail_subscriber:
+    class: Drupal\custom_module\EventSubscriber\MailSubscriber
+    tags:
+      - { name: event_subscriber }

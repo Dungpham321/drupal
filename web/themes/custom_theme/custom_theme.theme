@@ -15,6 +15,8 @@ use Drupal\Core\Theme\ThemeSettings;
 use Drupal\Core\Installer\InstallerKernel;
 use Drupal\file\Entity\File;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Form\FormStateInterface;
 
 function custom_theme_preprocess_views_view_fields(&$variables): void {
   $view = $variables['view'];
@@ -276,3 +278,32 @@ function custom_theme_preprocess_views_view(&$variables) {
     }
   }
 }
+
+// function custom_theme_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  
+//   if ($form_id === 'contact_message_form_ung_tuyen_form') {
+//     var_dump(($form['footer'])  );
+//     //var_dump($form['field_ho_va_ten']['#attributes']);
+//     $form['#attributes']['class'][] = 'custom-login';
+//     $form['field_ho_va_ten']['#attributes']['class'][] = 'abc';
+//   }
+// }
+
+
+// //form
+// function custom_theme_preprocess_form(&$variables): void {
+//   $element = $variables['element'];
+//   if (isset($element['#action'])) {
+//     $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
+//   }
+//   Element::setAttributes($element, ['method', 'id']);
+//   if (empty($element['#attributes']['accept-charset'])) {
+//     $element['#attributes']['accept-charset'] = "UTF-8";
+//   }
+//   $variables['attributes'] = $element['#attributes'];
+//   $variables['children'] = $element['#children'];
+//   if($variables['element']['form_id']['#value'] == 'contact_message_form_ung_tuyen_form'){
+//     var_dump(($element['#children']));
+//   }
+
+// }

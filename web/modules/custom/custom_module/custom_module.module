@@ -1,0 +1,83 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+function custom_module_mail_alter(array &$message): void {
+  $formid = $message['params']['contact_form']->id();
+  if($formid ==='form_ung_tuyen'){
+    $contact_message = $message['params']['contact_message'];
+    $message['subject'] = 'Ứng tuyển mới từ website';
+    $email = $contact_message->get('field_email')->value ?? '';
+    $sodienthoai = $contact_message->get('field_so_dien_thoai')->value ?? '';
+    $vitri = $contact_message->get('field_vi_tri_ung_tuyen')->value ?? '';
+    $hoten = $contact_message->get('field_ho_va_ten')->value ?? '';
+   $message['body'] = [
+        '<h3 style="color:#2563eb;">Thông tin ứng viên</h3>',
+        '<p><strong>Họ tên:</strong> ' . htmlspecialchars($hoten, ENT_QUOTES) . '</p>',
+        '<p><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES) . '</p>',
+        '<p><strong>Số điện thoại:</strong> ' . htmlspecialchars($sodienthoai, ENT_QUOTES) . '</p>',
+        '<p><strong>Vị trí ứng tuyển:</strong> ' . htmlspecialchars($vitri, ENT_QUOTES) . '</p>',
+      ];
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
+    $file_entity = $contact_message->get('field_file_cv')->entity;
+    if ($file_entity) {
+      $real_path = \Drupal::service('file_system')->realpath($file_entity->getFileUri());
+      $message['params']['attachments'][] = [
+          'filecontent' => file_get_contents($real_path),
+          'filename' => $file_entity->getFilename(),
+          'filemime' => $file_entity->getMimeType(),
+      ];
+    }
+  }
+}
+function custom_module_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+   if ($form_id === 'contact_message_form_ung_tuyen_form') {
+  
+    $form['#prefix'] = '<div class="contact-wrapper max-w-2xl mx-auto bg-white shadow-md rounded-2xl p-6">';
+    $form['#prefix'] .= '<h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Form Ứng Tuyển</h2>';
+    $form['#suffix'] = '</div>';
+
+    // ✅ Class tổng cho form
+    $form['#attributes']['class'][] = 'max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-8 space-y-6';
+    // ✅ Họ và tên
+    if (isset($form['field_ho_va_ten']['widget'][0]['value'])) {
+      $form['field_ho_va_ten']['widget'][0]['value']['#wrapper_attributes']['class'][] = 'form-item';
+      $form['field_ho_va_ten']['widget'][0]['value']['#attributes']['class'][] =
+        'w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+      $form['field_ho_va_ten']['widget'][0]['value']['#attributes']['placeholder'] = 'Họ và tên';
+    }
+    // ✅ Email
+    if (isset($form['field_email']['widget'][0]['value'])) {
+      $form['field_email']['widget'][0]['value']['#wrapper_attributes']['class'][] = 'form-item';
+      $form['field_email']['widget'][0]['value']['#attributes']['class'][] ='w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+      $form['field_email']['widget'][0]['value']['#attributes']['placeholder'] = 'Địa chỉ Email';
+    }
+    // ✅ Số điện thoại
+    if (isset($form['field_so_dien_thoai']['widget'][0]['value'])) {
+      $form['field_so_dien_thoai']['widget'][0]['value']['#wrapper_attributes']['class'][] = 'form-item';
+      $form['field_so_dien_thoai']['widget'][0]['value']['#attributes']['class'][] ='w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+      $form['field_so_dien_thoai']['widget'][0]['value']['#attributes']['placeholder'] = 'Số điện thoại';
+    }
+
+    // ✅ vị trí ứng tuyển
+    if (isset($form['field_vi_tri_ung_tuyen']['widget'][0]['value'])) {
+      $form['field_vi_tri_ung_tuyen']['widget'][0]['value']['#wrapper_attributes']['class'][] = 'form-item';
+      $form['field_vi_tri_ung_tuyen']['widget'][0]['value']['#attributes']['class'][] ='w-full border border-gray-300 rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500';
+      $form['field_vi_tri_ung_tuyen']['widget'][0]['value']['#attributes']['placeholder'] = 'Vị trí ứng tuyển';
+    }
+    // ✅ File upload (nếu có)
+      if (isset($form['field_file_cv']['widget'][0])) {
+          unset($form['field_file_cv']['widget'][0]['#description']);
+          $form['field_file_cv']['widget'][0]['#attributes']['class'][] ='block w-full text-sm text-gray-700 border border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-400 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer';
+        }
+
+    // ✅ Nút Submit
+    if (isset($form['actions']['submit'])) {
+       $form['actions']['submit']['#attributes']['class'][] ='bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 inline-flex items-center';
+      // Đổi nhãn nút
+      $form['actions']['submit']['#value'] = t('Gửi ứng tuyển'??'');
+      // ✅ Căn phải nhóm actions
+      $form['actions']['#attributes']['class'][] = 'flex justify-end pt-4';
+    }
+  }
+}
